@@ -82,3 +82,13 @@ Slowest for Reflection with caching:00:00:00.7462454
 Average for Reflection with caching:00:00:00.7085132
 **********************************************
 ```
+
+
+Interpretation:
+===============
+* we do 3 things per iteration (1.000.000 times) if you do more operations (e.g. setting 1000 properties e,g, because you implement an ORM or something the difference might be huge)
+* manual code is fastest (Avg 0.2924485 seconds for 1 million iterations, with 3 operations per iteration)
+* Using compiled expressions, delegates is nearly the same as hand written code (since it should emit the same IL code underneath), just the initial costs to creaete the expressions etc. is higher but can be cached. (Avg. 0.3064953 and  0.3162148 seconds)
+* dynamic is not slow, but certainly slower (Avg 00.3456718 seconds for 1 million iterations)
+* reflection with caching is not so bad - twice as slow as the other approaches: 0.7085132 sec on average. This might get slower if you do a lot of operations (=setting a lot of fields,...)
+* reflection without using any caching is slow: Avg. 8.2664987 seconds. Bt I guess you never would write code like this.
