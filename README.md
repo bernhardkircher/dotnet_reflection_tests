@@ -13,11 +13,13 @@ This is totally unscientific, just to get an overview on speed.
 * ...
 
 Testcase:
+========
 1. create a new instance of "DummyClass"
 2. set a property (Name)
 3. call a Method (GetHello())
 
-Test execution
+Test execution:
+=================
 * we have 10 executions per implementation
 * per execution we call Init() to check how long it takes to get the required cached data, depending on implementation.
 * per iteration we: 
@@ -27,6 +29,7 @@ Test execution
 
 
 Test implementations:
+=====================
 * Manual (Hardcoded): manual written code, which a developer would normally write to perform the actions. This should be the fastest
 * Delegates: Uses delegates (after using reflection to get the method;property,..) to perform the tests. This should emit code underneath, so it should be similar to hand written code. IMPORTANT: i made an ugly implementation, so it's not all delegates.
 * Compiled expressions: use expressions to perfor mthe operations. should be similar to delegates.
@@ -40,8 +43,13 @@ I also wanted to do a Test that manually emits IL code (because it's fun) but th
 
 Again, you usecase might be totally different, but at least it might gie ou an overview/idea. It might be ok to do reflection if it is an operation that is only executed once a minute (so your crappy business app with all of the database access might be already slow - you might want to improve that first --> this is what I do most of the time :)), but it might be a bad idea to do reflection in a tight game loop.
 
+
+Results:
+==========
+
 Here is the output from my old Intel I-5 laptop, by using "dotnet run":
 
+```
 Welcome - this is a test application to  test performace of Reflection and other options.
 Starting test for: Hardcoded, manual - nr of iterations per repetition: 1000000 - repetitions: 10
 Fastest for Hardcoded, manual:00:00:00.2210118
@@ -73,3 +81,4 @@ Fastest for Reflection with caching:00:00:00.6687227
 Slowest for Reflection with caching:00:00:00.7462454
 Average for Reflection with caching:00:00:00.7085132
 **********************************************
+```
